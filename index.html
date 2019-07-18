@@ -54,7 +54,8 @@
                 case "title":
                     const titleDom = document.getElementById("title");
                     if (titleDom) {
-                        titleDom.innerText = escapeHtml(decodeURIComponent(paramSplit[1]));
+
+                        titleDom.innerText = escapeHtml(decodeURIComponent(paramSplit[1].replace(/+/g, ' ')));
                     }
                     break;
                 case "type":
