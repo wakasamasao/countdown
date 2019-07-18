@@ -14,14 +14,14 @@
         h1 {
             width: 100%;
             text-align: center;
-            font-size: 7em;
+            font-size: 2em;
             color: black;
         }
 
         p {
             width: 100%;
             text-align: center;
-            font-size: 10em;
+            font-size: 3em;
             color: red;
             font-weight: bold;
         }
@@ -55,7 +55,7 @@
                     const titleDom = document.getElementById("title");
                     if (titleDom) {
 
-                        titleDom.innerText = escapeHtml(decodeURIComponent(paramSplit[1].replace(/+/g, ' ')));
+                        titleDom.innerText = escapeHtml(decodeURIComponent(paramSplit[1].replace(/\+/g, ' ')));
                     }
                     break;
                 case "type":
@@ -78,16 +78,16 @@
                 const countdownDom = document.getElementById("countdown");
                 switch (type) {
                     case "d":
-                        countdownDom.innerText = Math.floor(period / (1000 * 60 * 60 * 24)) + "日";
+                        countdownDom.innerText = Math.floor(period / (1000 * 60 * 60 * 24)).toLocaleString() + "日";
                         break;
                     case "h":
-                        countdownDom.innerText = Math.floor(period / (1000 * 60 * 60)) + "時";
+                        countdownDom.innerText = Math.floor(period / (1000 * 60 * 60)).toLocaleString() + "時";
                         break;
                     case "m":
-                        countdownDom.innerText = Math.floor(period / (1000 * 60)) + "分";
+                        countdownDom.innerText = Math.floor(period / (1000 * 60)).toLocaleString() + "分";
                         break;
                     case "s":
-                        countdownDom.innerText = Math.floor(period / (1000)) + "秒";
+                        countdownDom.innerText = Math.floor(period / (1000)).toLocaleString() + "秒";
                         break;
 
                 }
