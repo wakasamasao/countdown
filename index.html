@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>カウントダウン</title>
+    <style>
+        body {
+            margin: 10px;
+        }
+
+        h1 {
+            width: 100%;
+            text-align: center;
+            font-size: 7em;
+            color: black;
+        }
+
+        p {
+            width: 100%;
+            text-align: center;
+            font-size: 10em;
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+
+</head>
+
+<body>
+    <h1 id="titlebase">
+        <span id="title">目標</span>まで
+    </h1>
+    <p>
+        <span id="countdown">終了</span>
+    </p>
+
+    <script>
+
+        let targetDate, date, time, type = "s";
+
+        let param = location.search.substring(1).split('&');
+        for (let i = 0; i < param.length; i++) {
+            let paramSplit = param[i].split('=');
+            switch (paramSplit[0]) {
+                case "date":
+                    date = paramSplit[1];
+                    break;
+                case "time":
+                    time = paramSplit[1];
+                    break;
+                case "title":
+                    const titleDom = document.getElementById("title");
+                    if (titleDom) {
+                        titleDom.innerText = escapeHtml(decodeURI(paramSplit[1]));
+                    }
+                    break;
+                case "type":
+                    type = paramSplit[1];
+                    break;
+            }
+        }
+        if (date && time) {
+            targetDate = new Date(date + " " + time);
+        }
+
+
+        function countdownTimer() {
+            var nowDate = new Date();
+            var period = targetDate - nowDate;
+            var addZero = function (n) { return ('0' + n).slice(-2); }
+            var addZeroDay = function (n) { return ('0' + n).slice(-3); }
+            if (period >= 0) {
+                const countdownDom = document.getElementById("countdown");
+                switch (type) {
+                    case "d":
+                        countdownDom.innerText = Math.floor(period / (1000 * 60 * 60 * 24)) + "日";
+                        break;
+                    case "h":
+                        countdownDom.innerText = Math.floor(period / (1000 * 60 * 60)) + "時";
+                        break;
+                    case "m":
+                        countdownDom.innerText = Math.floor(period / (1000 * 60)) + "分";
+                        break;
+                    case "s":
+                        countdownDom.innerText = Math.floor(period / (1000)) + "秒";
+                        break;
+
+                }
+                setTimeout(countdownTimer, 10);
+            }
+            else {
+                document.getElementById("countdown").innerText = "終了";
+            }
+        }
+
+
+        function escapeHtml(string) {
+            if (typeof string !== 'string') {
+                return string;
+            }
+            return string.replace(/[&'`"<>]/g, function (match) {
+                return {
+                    '&': '&amp;',
+                    "'": '&#x27;',
+                    '`': '&#x60;',
+                    '"': '&quot;',
+                    '<': '&lt;',
+                    '>': '&gt;',
+                }[match]
+            });
+        }
+
+        if (targetDate) {
+            console.log(targetDate);
+            countdownTimer();
+        }
+
+    </script>
+</body>
+
+</html>
