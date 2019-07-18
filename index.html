@@ -46,23 +46,24 @@
             let paramSplit = param[i].split('=');
             switch (paramSplit[0]) {
                 case "date":
-                    date = decodeURI(paramSplit[1]);
+                    date = decodeURIComponent(paramSplit[1]);
                     break;
                 case "time":
-                    time = decodeURI(paramSplit[1]);
+                    time = decodeURIComponent(paramSplit[1]);
                     break;
                 case "title":
                     const titleDom = document.getElementById("title");
                     if (titleDom) {
-                        titleDom.innerText = escapeHtml(decodeURI(paramSplit[1]));
+                        titleDom.innerText = escapeHtml(decodeURIComponent(paramSplit[1]));
                     }
                     break;
                 case "type":
-                    type = decodeURI(paramSplit[1]);
+                    type = decodeURIComponent(paramSplit[1]);
                     break;
             }
         }
         if (date && time) {
+            console.log(date);
             targetDate = new Date(date + " " + time);
         }
 
