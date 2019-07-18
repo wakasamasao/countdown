@@ -46,10 +46,10 @@
             let paramSplit = param[i].split('=');
             switch (paramSplit[0]) {
                 case "date":
-                    date = paramSplit[1];
+                    date = decodeURI(paramSplit[1]);
                     break;
                 case "time":
-                    time = paramSplit[1];
+                    time = decodeURI(paramSplit[1]);
                     break;
                 case "title":
                     const titleDom = document.getElementById("title");
@@ -58,7 +58,7 @@
                     }
                     break;
                 case "type":
-                    type = paramSplit[1];
+                    type = decodeURI(paramSplit[1]);
                     break;
             }
         }
